@@ -48,6 +48,8 @@ private:
 	taskMapT tasksMap;
 	activityMapT activitiesMap;
 	workerMapT workersMap;
+	CRITICAL_SECTION c_s;
+	
 private://no serializable :
 	LARGE_INTEGER	m_QPFrequency;		// ticks/sec resolution
 	LARGE_INTEGER	m_StartCounter;		// start time
@@ -117,7 +119,8 @@ public:
 /*
 CRITICAL_SECTION c_s;
 ::InitializeCriticalSection(&c_s);
+::EnterCriticalSection(&c_s);
 ::LeaveCriticalSection(&c_s);
 ::DeleteCriticalSection(&c_s);
-::EnterCriticalSection(&c_s);
+
 */

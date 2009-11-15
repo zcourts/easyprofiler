@@ -27,6 +27,7 @@
 
 CTest::CTest( std::string sessionName )
 {
+	::InitializeCriticalSection(&c_s);
 	//
 	SYSTEMTIME st;
 	GetSystemTime(&st);
@@ -52,6 +53,7 @@ CTest::CTest( std::string sessionName )
 
 CTest::CTest(std::string sessionName,std::string dateTime,std::string description)
 {
+	::InitializeCriticalSection(&c_s);
 	this->sessionName=sessionName;
 	this->dateTime=dateTime;
 	this->description=description;
@@ -148,6 +150,7 @@ void CTest::flush( char* regionName,char* outputDirectory,char outputType )
 
 void CTest::beginActivity( std::string blocName )
 {
+	::EnterCriticalSection(&c_s);
 	CActivity* pNewBloc=new CActivity(blocName,GetElapsedTime());
 	pNewBloc->setParentTest(this);
 	activitiesMap[blocName]=pNewBloc;
@@ -156,28 +159,35 @@ void CTest::beginActivity( std::string blocName )
 	{
 		NotifyEvent(GetElapsedTime());
 	}
+	::LeaveCriticalSection(&c_s);
 }
 
 void CTest::endActivity( std::string blocName )
 {
+	::EnterCriticalSection(&c_s);
 	activitiesMap[blocName]->endMainBloc(GetElapsedTime());
 	if (bIsCompressionMode)
 	{
 		NotifyEvent(GetElapsedTime());
 	}
+	::LeaveCriticalSection(&c_s);
 }
 
 void CTest::insertCheckPoint( std::string blocName,std::string pointName )
 {
+	::EnterCriticalSection(&c_s);
 	activitiesMap[blocName]->insertPoint(pointName,GetElapsedTime());
 	if (bIsCompressionMode)
 	{
 		NotifyEvent(GetElapsedTime());
 	}
+	::LeaveCriticalSection(&c_s);
 }
 
 void CTest::beginTask( std::string subBlocName )
 {
+	::EnterCriticalSection(&c_s);
+	
 	if (tasksMap.find(subBlocName)==tasksMap.end())
 	{
 		CTask* pSubBloc=new CTask(subBlocName,GetElapsedTime());
@@ -186,15 +196,18 @@ void CTest::beginTask( std::string subBlocName )
 	}
 	else
 		tasksMap[subBlocName]->Start(GetElapsedTime());
+	::LeaveCriticalSection(&c_s);
 }
 
 void CTest::endTask( std::string subBlocName )
 {
+	::EnterCriticalSection(&c_s);
 	/*
 	double d=GetElapsedTime();
 	::MessageBoxA(NULL,CUtilities::GetFormattedTime(d).c_str(),NULL,MB_OK);*/
 
 	tasksMap[subBlocName]->Stop(GetElapsedTime());
+	::LeaveCriticalSection(&c_s);
 }
 
 CTest* CTest::createFromXML( XMLNode& xSession )
@@ -321,11 +334,13 @@ std::string CTest::getDescription()
 
 CTest::~CTest( void )
 {
-	//
+	::DeleteCriticalSection(&c_s);
 }
 
 void CTest::runWorker( char* workerName )
 {
+	::EnterCriticalSection(&c_s);
+	
 	if (workersMap.find(workerName)==workersMap.end())
 	{
 		DWORD dwThreadID=GetCurrentThreadId();
@@ -339,10 +354,14 @@ void CTest::runWorker( char* workerName )
 	}
 	else
 		workersMap[workerName]->Start(GetElapsedTime());//creating a new run
+	
+	::LeaveCriticalSection(&c_s);
 }
 
 void CTest::pauseWorker( char* workerName )
 {
+	::EnterCriticalSection(&c_s);
+	
 	if (workersMap.find(workerName)==workersMap.end())
 	{
 		DWORD dwThreadID=GetCurrentThreadId();
@@ -354,6 +373,7 @@ void CTest::pauseWorker( char* workerName )
 	}
 	else
 		workersMap[workerName]->Stop(GetElapsedTime());//creating a new run
+	::LeaveCriticalSection(&c_s);
 }
 
 workerMapT& CTest::getWorkersMap()
