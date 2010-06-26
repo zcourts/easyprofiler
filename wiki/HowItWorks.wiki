@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+How does Easy Profiler work ? 
+We can answer this question by listing the few steps required to put Easy Profiler into action:
+Integrate the instrumentation routine definition file into your project (a C++ file header)
+Instrument your code using the simple API provided.
+Place Profiler.dll next to your project executable.
+Run your program.
+Use Potato Observer to open the outputted data and analyse/visualize its content.
+When you run your instrumented code, potatoProfiler DLL collects then flushes timing informations related to the only features that you indicate. When you open a profiling data file using Potato Observer, that data is then defragmented and you are ready to apply any analysis/compare operation that you wish to do.
+Potato Observer has a 3 areas layout :
