@@ -1,13 +1,5 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+*Easy to use*
 
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+ No big learning effort required to know how you instrument your code. All you have is to understand the concept of three keywords : Activity, Task and Worker. With these you can model your situations by marking the target regions, suspect actors in them and have Potato Observer easily visualize their interactions for you.
