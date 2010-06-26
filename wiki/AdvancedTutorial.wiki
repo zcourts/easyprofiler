@@ -1,4 +1,4 @@
-#summary In this tutorial we try to profile an acceptor-reactor server implementation. First we explain the code situation before we provide an instrumentation solution with the aim of helping to understand how Easy Profiler can be used to describe a particular code model, how to gather performance data and how to perform analysis/compare operations that aid in interpretation.
+_In this tutorial we try to profile an acceptor-reactor server implementation. First we explain the code situation before we provide an instrumentation solution with the aim of helping to understand how Easy Profiler can be used to describe a particular code model, how to gather performance data and how to perform analysis/compare operations that aid in interpretation._
 
 The server consist of a :
 
