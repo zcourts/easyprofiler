@@ -45,6 +45,7 @@ or
 http://lh6.ggpht.com/_5sK5LKdcP34/TCZmT_0E-6I/AAAAAAAAAgU/tJKJMtf8mqU/6.png
 
 Finally we alter the main thread's code as follows :
+
 http://lh4.ggpht.com/_5sK5LKdcP34/TCZmT81O69I/AAAAAAAAAgY/G4ziRF6BCrg/7.png
 
 this will be considered as the life duration for the server and will be used for later lanalysis. Now we are ready to test and collect the results :
