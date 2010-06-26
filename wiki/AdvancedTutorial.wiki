@@ -66,6 +66,7 @@ The same can go with the remaing tasks. One can try to see if the time-contribut
 http://lh6.ggpht.com/_5sK5LKdcP34/TCZmZFD_ySI/AAAAAAAAAgw/bIeSz37ck48/13.png
 
 Analyzing the execution history of a certain task regardless of the worker that performs it, can give information about the behavior, the time-cost of that task and even can help detect the cause of repetitive bottlenecks that may arise in the run history of the worker processing.
+
 http://lh3.ggpht.com/_5sK5LKdcP34/TCZmZR5nXZI/AAAAAAAAAg0/PCAK536wABI/14.png
 
 chart :
@@ -80,12 +81,13 @@ Next we see if our worker was busy or not :
 http://lh5.ggpht.com/_5sK5LKdcP34/TCZmo7vjf6I/AAAAAAAAAhA/NUDC-O-Evso/17.png
 
 in addition we can sum execution times for all tasks then represent them in a pie :
+
 http://lh6.ggpht.com/_5sK5LKdcP34/TCZmo-a8VqI/AAAAAAAAAhE/03Y9t8IyGjI/18.png
 
 Of course Easy profiler allow you to show the data in different ways :
+
 http://lh3.ggpht.com/_5sK5LKdcP34/TCZmo13d5vI/AAAAAAAAAhI/Xf_pT97AfxU/19.png
 
 the same past data in a horizontal columns :
+
 http://lh4.ggpht.com/_5sK5LKdcP34/TCZmpBGpiTI/AAAAAAAAAhM/zYXXdjJV7J0/20.png
-
-
