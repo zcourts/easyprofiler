@@ -1,13 +1,16 @@
-#summary One-sentence summary of this page.
+#summary In this tutorial we try to profile an acceptor-reactor server implementation. First we explain the code situation before we provide an instrumentation solution with the aim of helping to understand how Easy Profiler can be used to describe a particular code model, how to gather performance data and how to perform analysis/compare operations that aid in interpretation.
 
-= Introduction =
+The server consist of a :
 
-Add your content here.
+Listening thread : this threads waits for connexions requests and accepts them.
+Pool of worker thread that process asynchrnous events that are queued in a common FIFO queue.
+and of course the main thread that starts the listener, initializes the queue and creates the pool and waits for a "termination" signal.
+ To model threads, the following instrumentation routines are given :
 
+threadRun("threadName");
 
-= Details =
+threadPause("threadName");
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+threadRun marks the event of entering a new running state, while threadPause is used to indicate that the thread is entering a blocking state. This is not a strict use-case. You are not obliged to provide the profiler with the exact moments : you may be interested to strip away some execution code and only attribute the job being performed by the thread to particular blocks. The profiler automatically collects the threadID and records the "runs" periods of the named thread. You will be able then to visualize the execution hostory of a particular thread, note duration irregularities, analyze the job periods against fine tasks,etc.
+
+In our situation, we would klike to monitor the worker threads that handle incoming requests. Each worker waits for incoming events from the FIFO queue then begin processing it as soon as it comes before it attempts to dequeue a request from the queue or enter a blocking state untill something arrive :
